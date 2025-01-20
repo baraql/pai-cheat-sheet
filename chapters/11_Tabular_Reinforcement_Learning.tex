@@ -22,6 +22,9 @@ With probability at least $1-\delta$, $R_\mathrm{max}$ reaches an $\epsilon$-opt
 This is an on-policy method.
 \includegraphics[width=0.95\linewidth, trim={0 0 3cm 0}]{images/Q_learning.png}
 This is an off-policy method.
+Optimistic: init $Q(x,a) = \frac{R_{\max}}{1-\gamma}$ for all $(x,a)$ pairs.
 The update rule can also be expressed as: $\Q*{x}{a} \gets \Q*{x}{a} + \alpha_t\parentheses*{r + \gamma \max_{a' \in \sA} \Q*{x'}{a'} - \Q*{x}{a}}$.
 Both converge if $\alpha_t$ satisfy RM conditions and every state-action pair is visited infinitely often.
+RM: \(\alpha_t > 0, \sum_{t=1}^\infty \alpha_t = \infty, \sum_{t=1}^\infty \alpha_t^2 < \infty\). (Step sizes diminish but not too quickly.)
+
 %\includegraphics[width=\linewidth]{images/REINFORCE.png}
