@@ -1,11 +1,10 @@
 \section{Gaussian Processes}
 \begin{framed}
-    A \textbf{Gaussian process} is an infinite set of random variables such that any finite number of them are jointly Gaussian. We use a set $\spX$ to index the collection of random variables.
     A Gaussian process is characterized by a \textbf{mean function} $\mu : \spX \to \R$ and a \textbf{covariance function} (or \textbf{kernel function}) $k : \spX \times \spX \to \R$ such that for any $\sA \defeq \{\vx_1, \dots, \vx_m\} \subseteq \spX$, we have 
   $\vf_\sA \defeq \transpose{[f_{\vx_1} \; \cdots \; f_{\vx_m}]} \sim \N{\vmu_\sA}{\mK_{\sA\sA}}$ 
 We write $f \sim \GP{\mu}{k}$.
-In particular, given a mean function, covariance function, and using the homoscedastic noise assumption, 
-  $\ys \mid \vxs, \mu, k \sim \N{\mu(\vxs)}{k(\vxs, \vxs) + \sigman^2}$
+In particular,  
+  $\ys \mid \vxs, \mu, k \sim \N{\mu(\vxs)}{k(\vxs, \vxs) + \sigman^2}$ (homoscedastic noise)
 \end{framed}
 \begin{framed}
     \textbf{Maximize Marginal Likelihood}: \\
@@ -29,3 +28,7 @@ $\pdv{}{\theta_j} \log p(y_{1:n} \mid \vx_{1:n}, \vtheta) = \frac{1}{2} \tr{(\va
     \textbf{Bochner's Theorem} A continuous Kernel on $\R^d$ is p.s.d iff its Fourier transform $p(\vomega)$ is non-negative.
 \end{framed}
 $\implies$ If continuous and stationary kernel is p.s.d. and scaled correctly then $p(\vomega)$ is a probability distribution named \textbf{spectral density} of $k$. The spectral density can be computed by: $p(\vomega) = \int_{\R^d} k(\vomega) e^{- i 2 \pi \transpose{\vxi} \vomega} \,d\vomega.$ \\ Now write the kernel as an expectation: $k(\vx-\vxp) = \int_{\R^d} p(\vomega) e^{i \transpose{\vomega} (\vx-\vxp)} \,d\vomega = \E[\vomega \sim p]{e^{i \transpose{\vomega}(\vx-\vxp)}}= \transpose{\vz(\vx)} \vz(\vxp)$, where $z_{\vomega,b}(\vx) \defeq \sqrt{2} \cos(\transpose{\vomega} \vx + b)$, and $\vz(\vx) \defeq \frac{1}{\sqrt{m}} \transpose{[z_{\vomega^{(1)},b^{(1)}}(\vx), \dots, z_{\vomega^{(m)},b^{(m)}}(\vx)]}$ is a randomized feature map of Fourier transforms $\vomega^{(i)} \iid p$ and $b^{(i)} \iid \Unif{\brackets{0, 2 \pi}}$. The error probability decays exponentially in $\epsilon$.
+\begin{framed}
+    \textbf{Inducing Points}    
+    SoR/FITC: runtime \(\mathcal{O}(n^3)\) in number of inducing points, \(\mathcal{O}(n)\) in number of points. Inducing points can be seen as hyperparameters to optimize.
+\end{framed}
