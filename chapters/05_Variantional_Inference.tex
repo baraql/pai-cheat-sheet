@@ -7,9 +7,11 @@ Perform inference using the approximation: $p(\ys \mid \vxs, \vx_{1:n}, y_{1:n})
     \textbf{Suprise} of an event prob. $u$: $\S{u} \defeq - \log u$.
 \end{framed}
 \begin{framed}
-    The \textbf{entropy} of a distribution $p$ is the average surprise of samples from $p$:\\
-    $\H{p} \defeq \E[x \sim p]{\S{p(x)}} = \E[x \sim p]{- \log p(x)}$.
+    \textbf{Entropy:} $H(q) = \mathbb{E}_q[-\log q(\theta)] = - \int q(\theta) \log q(\theta) \, d\theta$\\
+    $- \sum_{\theta} q(\theta) \log q(\theta); \quad H\left(\prod q_i(\theta_i)\right) = \sum_i H(q_i);$\\
+    $H(N(\mu, \Sigma)) = \frac{1}{2} \ln |2\pi e \Sigma|; \quad H(p, q) = H(p) + H(q \mid p)$
 \end{framed}
+
 \textbf{Gaussian}: $\H{\N{\vmu}{\mSigma}} = \frac{1}{2} \log \parentheses*{(2 \pi e)^d \det{\mSigma}}$
 Highest entropy among all distributions on $\R$ with fixed mean and variance.
 \begin{framed}

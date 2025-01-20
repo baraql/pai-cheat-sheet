@@ -14,13 +14,17 @@
 \end{framed} 
 \begin{framed}
     \textbf{Variance and Covariance}\\
-$\rX\in \R^n$, $\rY \in \R^m$ random vectors.\\
-  $\Cov{\rX, \rY} \defeq \E{(\rX - \E{\rX})\transpose{(\rY - \E{\rY})}}$\\
-$\Cov{\mA\rX + \vc, \mB\rY + \vd} = \mA\Cov{\rX,\rY}\transpose{\mB}$
-\emph{Uncorrelated} if and only if $\Cov{\rX, \rY} = \mzero$.
-The \emph{correlation} of the random vectors $\rX$ and $\rY$ is a normalized covariance: $\Cor{\rX,\rY}(i,j) \defeq \frac{\Cov{X_i,Y_j}}{\sqrt{\Var{X_i} \Var{Y_j}}} \in [-1,1]$\\
-$\Var{\rX} \defeq \Cov{\rX, \rX}$ \\
+    $\rX \in \R^n$, $\rY \in \R^m$ random vectors.\\
+    $\Cov{\rX, \rY} \defeq \E{(\rX - \E{\rX})\transpose{(\rY - \E{\rY})}}$\\
+    $\Cov{\mA \rX + \vc, \mB \rY + \vd} = \mA \Cov{\rX, \rY} \transpose{\mB}$\\
+    \emph{Uncorrelated} if and only if $\Cov{\rX, \rY} = \mzero$.\\
+    The \emph{correlation} of the random vectors $\rX$ and $\rY$ is a normalized covariance: 
+    $\Cor{\rX, \rY}(i,j) \defeq \frac{\Cov{X_i, Y_j}}{\sqrt{\Var{X_i} \Var{Y_j}}} \in [-1, 1]$\\
+    $\Var{\rX} \defeq \Cov{\rX, \rX}$\\
+    $\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X, Y)$\\
+    $\text{Var}(X-Y) = \text{Var}(X) + \text{Var}(Y) - 2\text{Cov}(X, Y)$\\
 \end{framed}
+
 \begin{framed}
     \textbf{Inverse of a 2x2 matrix}\\
     $\mA=\begin{pmatrix}a&b\\c&d\end{pmatrix}, \mA^{-1}=\frac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}$
@@ -40,7 +44,10 @@ $\Var{\rX} = \E[\rY]{\Var[\rX]{\rX \mid \rY}} + \Var[\rY]{\E[\rX]{\rX \mid \rY}}
 Let $\vg$ be differentiable and invertible. Then for $\rY = \vg(\rX)$ we have $p_\rY(\vy) = p_\rX(\inv{\vg}(\vy)) \cdot \abs{\det{\jac \inv{\vg}(\vy)}}$ where $\jac \inv{\vg}(\vy)$ is the Jacobian of $\inv{\vg}$ evaluated at $\vy$.
 \begin{framed}
 \textbf{Bayes' rule}: 
-$p(\vx \mid \vy) = \frac{p(\vy \mid \vx) \cdot p(\vx)}{p(\vy)}$
+$p(\vx \mid \vy) = \frac{p(\vy \mid \vx) \cdot p(\vx)}{p(\vy)}$ \\
+$P(A \mid B, C) = \frac{P(B \mid A, C) P(A \mid C)}{P(B \mid C)}$
+
+
 \end{framed}
 \begin{framed}
     \textbf{Posterior} $p(\vx \mid \vy)$: updated belief about $\vx$ after observing $\vy$. \\

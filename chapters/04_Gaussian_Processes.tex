@@ -32,3 +32,16 @@ $\implies$ If continuous and stationary kernel is p.s.d. and scaled correctly th
     \textbf{Inducing Points}    
     SoR/FITC: runtime \(\mathcal{O}(n^3)\) in number of inducing points, \(\mathcal{O}(n)\) in number of points. Inducing points can be seen as hyperparameters to optimize.
 \end{framed}
+\begin{framed}
+  \textbf{Kalman Filter}\\
+  $\mathbf{X}_{t+1} \perp \mathbf{X}_{1:t-1} \mid \mathbf{X}_t, \quad \mathbf{Y}_t \perp \mathbf{Y}_{1:t-1} \mid \mathbf{X}_t$\\
+  $P(\mathbf{X}_1) \sim \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$\\
+  \textbf{Motion:} $P(\mathbf{X}_{t+1} \mid \mathbf{X}_t) = \mathcal{N}(\mathbf{F} \mathbf{X}_t, \boldsymbol{\Sigma}_x)$, \quad $\mathbf{X}_{t+1} = \mathbf{F} \mathbf{X}_t + \epsilon_t$\\
+  \textbf{Sensor:} $P(\mathbf{Y}_t \mid \mathbf{X}_t) = \mathcal{N}(\mathbf{H} \mathbf{X}_t, \boldsymbol{\Sigma}_y)$, \quad $\mathbf{Y}_t = \mathbf{H} \mathbf{X}_t + \eta_t$\\
+  \textbf{Update:} $\boldsymbol{\mu}_{t+1} = \mathbf{F} \boldsymbol{\mu}_t + \mathbf{K}_{t+1}(\mathbf{y}_{t+1} - \mathbf{H} \mathbf{F} \boldsymbol{\mu}_t)$, \\
+  $\boldsymbol{\Sigma}_{t+1} = (\mathbf{I} - \mathbf{K}_{t+1} \mathbf{H})(\mathbf{F} \boldsymbol{\Sigma}_t \mathbf{F}^\top + \boldsymbol{\Sigma}_x)$\\
+  \textbf{Gain:} $\mathbf{K}_{t+1} = (\mathbf{F} \boldsymbol{\Sigma}_t \mathbf{F}^\top + \boldsymbol{\Sigma}_x) \mathbf{H}^\top [\mathbf{H}(\mathbf{F} \boldsymbol{\Sigma}_t \mathbf{F}^\top + \boldsymbol{\Sigma}_x)\mathbf{H}^\top + \boldsymbol{\Sigma}_y]^{-1}$\\
+  \textbf{Filtering:}\\
+  $P(\mathbf{X}_t \mid \mathbf{y}_{1:t}) = \frac{1}{Z} P(\mathbf{y}_t \mid \mathbf{X}_t) P(\mathbf{X}_t \mid \mathbf{y}_{1:t-1})$, \\
+  $P(\mathbf{X}_{t+1} \mid \mathbf{y}_{1:t}) = \int P(\mathbf{X}_{t+1} \mid \mathbf{X}_t) P(\mathbf{X}_t \mid \mathbf{y}_{1:t}) d\mathbf{X}_t$
+\end{framed}

@@ -1,9 +1,9 @@
 \section{Bayesian Linear Regression}
 \(\vy=\mX\vw+\vepsilon, \vepsilon\sim\N{\vmu}{\sigma_n^2 \mI_d}\)
 \begin{framed}
-    \textbf{Solutions}:
+    \textbf{Solutions}:\\
     $\vwhat_{\ls} = \inv{(\transpose{\mX} \mX)} \transpose{\mX} \vy$  \\
-    $\vwhat_{\ridge} = \inv{(\transpose{\mX} \mX + \lambda \mI)} \transpose{\mX} \vy$ where \(\lambda=\sigma_n^2/\sigma_p^2\)
+    $\vwhat_{\ridge} = \inv{(\transpose{\mX} \mX + \lambda \mI)} \transpose{\mX} \vy$, where \(\lambda=\sigma_n^2/\sigma_p^2\)
 \end{framed}
 \textbf{Notable Results}: $\Var{\vwhat_{\ls} \mid \rX} = \sigman^2(\transpose{\rX}\rX)^{-1}$ \\
 \textbf{Gaussian prior} $\vw \sim \N{\vzero}{\sigmap^2 \mI}$ yields posterior $\log p(\vw \mid \vx_{1:n}, y_{1:n}) = -\frac{1}{2} \brackets*{\transpose{\vw}\mSigma^{-1}\vw - 2\vmu} + \const$, $\mSigma \defeq \inv{\parentheses*{\sigman^{-2} \transpose{\mX} \mX + \sigmap^{-2} \mI}}$, $\vmu \defeq \sigman^{-2} \mSigma \transpose{\mX} \vy$. We have $\vw \mid \vx_{1:n}, y_{1:n} \sim \N{\vmu}{\mSigma}$: \textit{Gaussian's with known variance and linear likelihood} are self-conjugate. \\
@@ -12,8 +12,13 @@ A \textbf{Laplace prior} on the weights is equivalent to \textbf{lasso regressio
 \textbf{Bayesian inference}: For test point $\vxs$, $\ys\mid  y_{1:n} \sim \N{\transpose{\vmu} \vxs}{\transpose{\vxs} \mSigma \vxs + \sigman^2}$. \\
 $\Var{\ys} = \underbrace{\E[\vtheta]{\Var[\ys]{\ys, \vtheta}}}_{\text{aleatoric uncertainty}} + \underbrace{\Var[\vtheta]{\E[\ys]{\ys, \vtheta}}}_{\text{epistemic uncertainty}}$.\\
 Aleatoric $\rightarrow$ noise in data; Epistemic $\rightarrow$ noise in model.
-Online inference requires \(\mathcal{O}(d)\) memory and \(\mathcal{O}(d^2)\) time per-round.
-Applying linear regression to non linear functions: apply a non linear transformation $\vphi$ to $\rX$. Define $\mPhi = \vphi(\rX)$, so-called \textbf{Kernel}. With a gaussian prior we get: $\vf \mid \mX \sim \N{\mPhi \E{\vw}}{\mPhi \Var{\vw} \transpose{\mPhi}} = \N{\vzero}{\mK}$, with $\mK = \sigmap^2 \mPhi \transpose{\mPhi}$. We define the \textbf{Kernel-function}: $k(\vx, \vxp) \defeq \sigmap^2 \cdot \transpose{\vphi(\vx)} \vphi(\vxp) = \Cov{f(\vx), f(\vxp)}$.
+Online inference requires \(\mathcal{O}(d)\) memory and \(\mathcal{O}(d^2)\) time per-round.\\
+\textbf{Logistic Regression (BLogR)}:\\
+$p(y_i \mid \mathbf{x}_i, \boldsymbol{\theta}) = \sigma(y_i \mathbf{w}^\top \mathbf{x}_i), \quad \sigma(a) = \frac{1}{1 + e^{-a}}$
+\begin{framed}
+    \textbf{Applying linear regression to non-linear functions}:\\
+    Apply a non-linear transformation $\vphi$ to $\rX$. Define $\mPhi = \vphi(\rX)$, so-called \textbf{Kernel}. With a Gaussian prior we get: $\vf \mid \mX \sim \N{\mPhi \E{\vw}}{\mPhi \Var{\vw} \transpose{\mPhi}} = \N{\vzero}{\mK}$, with $\mK = \sigmap^2 \mPhi \transpose{\mPhi}$. We define the \textbf{Kernel-function}: $k(\vx, \vxp) \defeq \sigmap^2 \cdot \transpose{\vphi(\vx)} \vphi(\vxp) = \Cov{f(\vx), f(\vxp)}$.
+\end{framed}
 \begin{framed}
     \textbf{Linear}: $k(\vx, \vxp) = l \transpose{\vx} \vxp$ or \(l\phi(\vx)^T \phi(\vx')\)\\
     \textbf{RBF/Gaussian}: $k(\vx, \vxp) = \exp{-\frac{(\vx - \vxp)^2}{2\sigma_p^2}}$ \\
@@ -21,16 +26,14 @@ Applying linear regression to non linear functions: apply a non linear transform
     \textbf{Laplacian}: $k(\vx, \vxp) = \exp{\left(-\alpha \norm{\vx - \vxp}\right)}$
 \end{framed}
 \begin{framed}
-    \textbf{Properties of Kernels}:  \\
-    Symmetry: $k(\vx, \vxp) = k(\vxp, \vx)$ and $\mK_{\sA\sA}$ is p.s.d. \\
-    Kernels can be \textbf{composed} in the following ways: addition, multiplication, positive scalar multiplication and composition with a funtion $f$ if $f$ is polynomial with positive coefficients or $\exp$.
+    \textbf{Properties of Kernels}:\\
+    Symmetry: $k(\vx, \vxp) = k(\vxp, \vx)$ and $\mK_{\sA\sA}$ is p.s.d.\\
+    Kernels can be \textbf{composed} in the following ways: addition, multiplication, positive scalar multiplication and composition with a function $f$ if $f$ is polynomial with positive coefficients or $\exp$.
 \end{framed}
 \begin{framed}
-    \textbf{Positive Semidefiniteness}
-    If kernel matrix \(\mK\) is p.s.d., then  \(\forall \vx\neq 0\), \(\vx^T \mK \vx >0\).
+    \textbf{Positive Semidefiniteness}:\\
+    If kernel matrix \(\mK\) is p.s.d., then  \(\forall \vx\neq 0\), \(\vx^T \mK \vx >0\).\\
     If \(\det{\mK}>0\),  \(\mK\) is p.s.d. If \(\det{\mK}<0\),  \(\mK\) is not p.s.d. No result for \(\det{\mK}=0\).
-
-    
+    Quick check (necessary not sufficient): $k(x,x') \leq \sqrt{k(x,x)k(x',x')}$\\
 \end{framed}
 \textbf{Stationary} if there exists a $\tilde{k}$ s.t. $\tilde{k}(\vx - \vxp) = k(\vx, \vxp)$, and \textbf{Isotropic} if there exists a $\tilde{k}$ s.t. $\tilde{k}(\norm{\vx-\vxp}_2) = k(\vx, \vxp)$.
-
